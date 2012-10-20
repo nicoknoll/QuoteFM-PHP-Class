@@ -1,7 +1,7 @@
 <?php
 require_once 'quotefm.php';
 
-$qfm = new Quotefm('<consumer key>', '<consumer secret>');
+$qfm = new QUOTEfm('<consumer key>', '<consumer secret>');
 $redirectUrl = '';
 
 if(!isset($_GET['code']) && !$qfm->oAuthLoadTokenFromCookie() && !$qfm->oAuthLoadTokenFromSession()) {

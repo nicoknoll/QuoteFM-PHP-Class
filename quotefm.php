@@ -1,8 +1,8 @@
 <?php
 /**
-* Quotefm class
+* QUOTEfm class
 *
-* This file can be used to communicate with QuoteFM (http://quote.fm)
+* This file can be used to communicate with QUOTEfm (http://quote.fm)
 *
 * This class is based on the Twitter class by Tijs Verkoyen (http://verkoyen.eu).
 *
@@ -24,7 +24,7 @@
 * @license		BSD License
 */
 
-class Quotefm
+class QUOTEfm
 {
 	// internal constant to enable/disable debugging
 	const DEBUG = false;
@@ -275,7 +275,7 @@ class Quotefm
 		$errorMessage = curl_error($this->curl);
 
 		// error?
-		if($errorNumber != '') throw new QuotefmException($errorMessage, $errorNumber);
+		if($errorNumber != '') throw new QUOTEfmException($errorMessage, $errorNumber);
 
 		// init var
 		$return = json_decode($response, true);
@@ -311,7 +311,7 @@ class Quotefm
 		$oauth = array();
 
 		// validate method
-		if(!in_array($method, $allowedMethods)) throw new QuotefmException('Unknown method (' . $method . '). Allowed methods are: ' . implode(', ', $allowedMethods));
+		if(!in_array($method, $allowedMethods)) throw new QUOTEfmException('Unknown method (' . $method . '). Allowed methods are: ' . implode(', ', $allowedMethods));
 
 		// set data
 		if(!empty($parameters)) $data = $parameters;
@@ -401,7 +401,7 @@ class Quotefm
 			}
 
 			// throw exception
-			throw new QuotefmException('Invalid response.');
+			throw new QUOTEfmException('Invalid response.');
 		}
 
 
@@ -428,9 +428,9 @@ class Quotefm
 			}
 
 			// throw exception
-			if(isset($json['errors'][0]['message'])) throw new QuotefmException($json['errors'][0]['message']);
-			elseif(isset($json['errors']) && is_string($json['errors'])) throw new QuotefmException($json['errors']);
-			else throw new QuotefmException('Invalid response.');
+			if(isset($json['errors'][0]['message'])) throw new QUOTEfmException($json['errors'][0]['message']);
+			elseif(isset($json['errors']) && is_string($json['errors'])) throw new QUOTEfmException($json['errors']);
+			else throw new QUOTEfmException('Invalid response.');
 		}
 
 
@@ -454,7 +454,7 @@ class Quotefm
 			}
 
 			// throw exception
-			throw new QuotefmException($json['error']);
+			throw new QUOTEfmException($json['error']);
 		}
 
 		// return
@@ -507,13 +507,13 @@ class Quotefm
 
 	/**
 	 * Get the useragent that will be used. Our version will be prepended to yours.
-	 * It will look like: "PHP Quotefm/<version> <your-user-agent>"
+	 * It will look like: "PHP QUOTEfm/<version> <your-user-agent>"
 	 *
 	 * @return	string
 	 */
 	public function getUserAgent()
 	{
-		return (string) 'PHP Quotefm/' . self::VERSION . ' ' . $this->userAgent;
+		return (string) 'PHP QUOTEfm/' . self::VERSION . ' ' . $this->userAgent;
 	}
 
 
@@ -566,7 +566,7 @@ class Quotefm
 
 	/**
 	 * Get the useragent that will be used. Our version will be prepended to yours.
-	 * It will look like: "PHP Quotefm/<version> <your-user-agent>"
+	 * It will look like: "PHP QUOTEfm/<version> <your-user-agent>"
 	 *
 	 * @return	void
 	 * @param	string $userAgent	Your user-agent, it should look like <app-name>/<app-version>.
@@ -598,7 +598,7 @@ class Quotefm
 	 */
 	private static function urlencode_rfc3986($value)
 	{
-		if(is_array($value)) return array_map(array('Quotefm', 'urlencode_rfc3986'), $value);
+		if(is_array($value)) return array_map(array('QUOTEfm', 'urlencode_rfc3986'), $value);
 		else
 		{
 			$search = array('+', ' ', '%7E', '%');
@@ -622,7 +622,7 @@ class Quotefm
 	public function recommendationDelete($id)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -645,7 +645,7 @@ class Quotefm
 	public function recommendationPost($text, $source, $categoryId = null, $comment = null)
 	{
 		// validate
-		if($text == '' || $source == '') throw new QuotefmException('A text and a source are required.');
+		if($text == '' || $source == '') throw new QUOTEfmException('A text and a source are required.');
 	
 		// build parameters
 		$parameters = null;
@@ -669,7 +669,7 @@ class Quotefm
 	public function recommendationRecite($id, $comment = null)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -690,7 +690,7 @@ class Quotefm
 	public function recommendationGet($id)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -714,7 +714,7 @@ class Quotefm
 	public function recommendationListByArticle($id = null, $url = null, $scope = null, $pageSize = null, $page = null)
 	{
 		// validate
-		if($id == '' && $url == '') throw new QuotefmException('An ID or a URL is required.');
+		if($id == '' && $url == '') throw new QUOTEfmException('An ID or a URL is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -741,7 +741,7 @@ class Quotefm
 	public function recommendationListByUser($username, $scope = null, $pageSize = null, $page = null)
 	{
 		// validate
-		if($username == '') throw new QuotefmException('An username is required.');
+		if($username == '') throw new QUOTEfmException('An username is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -787,7 +787,7 @@ class Quotefm
 	public function articleSearch($term, $pageSize = null, $page = null)
 	{
 		// validate
-		if($term == '') throw new QuotefmException('A term is required.');
+		if($term == '') throw new QUOTEfmException('A term is required.');
 		
 		// build parameters
 		$parameters = null;
@@ -816,7 +816,7 @@ class Quotefm
 	public function articleGet($id, $url = null)
 	{
 		// validate
-		if($id == '' && $url == '') throw new QuotefmException('An ID or a URL is required.');
+		if($id == '' && $url == '') throw new QUOTEfmException('An ID or a URL is required.');
 		
 		// build parameters
 		$parameters = null;
@@ -844,7 +844,7 @@ class Quotefm
 	public function articleListByPage($id, $scope = null, $pageSize = null, $page = null)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -878,7 +878,7 @@ class Quotefm
 	public function articleListByCategories($ids, $scope = null, $pageSize = null, $page = null)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('IDs are required.');
+		if($id == '') throw new QUOTEfmException('IDs are required.');
 	
 		// build parameters
 		$parameters = null;
@@ -907,7 +907,7 @@ class Quotefm
 	public function pageFollow($id)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -927,7 +927,7 @@ class Quotefm
 	public function pageUnfollow($id)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -947,7 +947,7 @@ class Quotefm
 	public function pageBlock($id)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -967,7 +967,7 @@ class Quotefm
 	public function pageUnblock($id)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -990,7 +990,7 @@ class Quotefm
 	public function pageGet($id, $domain = null)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1039,7 +1039,7 @@ class Quotefm
 	public function userSearch($term, $pageSize = null, $page = null)
 	{
 		// validate
-		if($term == '') throw new QuotefmException('A term is required.');
+		if($term == '') throw new QUOTEfmException('A term is required.');
 		
 		// build parameters
 		$parameters = null;
@@ -1061,7 +1061,7 @@ class Quotefm
 	public function userFollow($id)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1081,7 +1081,7 @@ class Quotefm
 	public function userUnfollow($id)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1101,7 +1101,7 @@ class Quotefm
 	public function userBlock($id)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1121,7 +1121,7 @@ class Quotefm
 	public function userUnblock($id)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1144,7 +1144,7 @@ class Quotefm
 	public function userGet($id = null, $username = null)
 	{
 		// validate
-		if($id == '' && $username == '') throw new QuotefmException('An ID or a username is required.');
+		if($id == '' && $username == '') throw new QUOTEfmException('An ID or a username is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1170,7 +1170,7 @@ class Quotefm
 	public function userListFollowers($id = null, $username = null, $pageSize = null, $page = null)
 	{
 		// validate
-		if($id == '' && $username == '') throw new QuotefmException('An ID or a username is required.');
+		if($id == '' && $username == '') throw new QUOTEfmException('An ID or a username is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1198,7 +1198,7 @@ class Quotefm
 	public function userListFollowings($id = null, $username = null, $pageSize = null, $page = null)
 	{
 		// validate
-		if($id == '' && $username == '') throw new QuotefmException('An ID or a username is required.');
+		if($id == '' && $username == '') throw new QUOTEfmException('An ID or a username is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1257,7 +1257,7 @@ class Quotefm
 	public function commentPost($recommendationId, $text)
 	{
 		// validate
-		if($text == '' || $source == '') throw new QuotefmException('A text and a recommendation ID are required.');
+		if($text == '' || $source == '') throw new QUOTEfmException('A text and a recommendation ID are required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1280,7 +1280,7 @@ class Quotefm
 	public function commentDelete($id)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1302,7 +1302,7 @@ class Quotefm
 	public function commentLike($id)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1324,7 +1324,7 @@ class Quotefm
 	public function commentUnlike($id)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1347,7 +1347,7 @@ class Quotefm
 	public function commentGet($id, $replaceMentions = false)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1372,7 +1372,7 @@ class Quotefm
 	public function readStar($id)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1392,7 +1392,7 @@ class Quotefm
 	public function readUnstar($id)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1412,7 +1412,7 @@ class Quotefm
 	public function readArchive($id)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1432,7 +1432,7 @@ class Quotefm
 	public function readUnarchive($id)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1452,7 +1452,7 @@ class Quotefm
 	public function readDelete($id)
 	{
 		// validate
-		if($id == '') throw new QuotefmException('An ID is required.');
+		if($id == '') throw new QUOTEfmException('An ID is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1475,7 +1475,7 @@ class Quotefm
 	public function readSave($articleId, $recommendationId)
 	{
 		// validate
-		if($articleId == '' || $recommendationId == '') throw new QuotefmException('An article ID and a recommendation ID are required.');
+		if($articleId == '' || $recommendationId == '') throw new QUOTEfmException('An article ID and a recommendation ID are required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1498,7 +1498,7 @@ class Quotefm
 	public function readSaveUrl($url)
 	{
 		// validate
-		if($url == '') throw new QuotefmException('A URL is required.');
+		if($url == '') throw new QUOTEfmException('A URL is required.');
 	
 		// build parameters
 		$parameters = null;
@@ -1565,7 +1565,7 @@ class Quotefm
 		$response = $this->doOAuthCall('token', $parameters);
 
 		// validate
-		if(!isset($response['access_token'])) throw new QuotefmException(implode(', ', array_keys($response)));
+		if(!isset($response['access_token'])) throw new QUOTEfmException(implode(', ', array_keys($response)));
 
 		// set some properties
 		if(isset($response['access_token'])) $this->setAccessToken($response['access_token']);
@@ -1653,7 +1653,7 @@ class Quotefm
  *
  * @author	Nico Knoll <mail@nico.is>
  */
-class QuotefmException extends Exception
+class QUOTEfmException extends Exception
 {
 }
 
