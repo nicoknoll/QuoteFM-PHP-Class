@@ -1534,7 +1534,7 @@ class QUOTEfm
 		if($page != null) $parameters['page'] = (string) $page;
 		
 		// make the call
-		return (array) $this->doCall('category/list', $parameters, true, 'GET');
+		return (array) $this->doCall('read/list', $parameters, true, 'GET');
 	}
 
 
